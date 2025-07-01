@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using productManagement.Data;
-using System.Security.Cryptography;
-using System.Text;
+using productManagement.Models;
+using System.Linq;
+namespace productManagement.Controllers
 
-namespace ProductManagerApp.Controllers
 {
     public class AccountController : Controller
     {
@@ -13,85 +14,80 @@ namespace ProductManagerApp.Controllers
         {
             _context = context;
         }
-
-        // ===== Register =====
+        
+        // ===== Register (GET) =====
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        // ===== Register (POST) =====
         [HttpPost]
-        public IActionResult Register(User user)
+        public IActionResult Register(string Name, string Email, string Password, string ConfirmPassword)
         {
-            if (ModelState.IsValid)
+            if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Email))
             {
-                // Check if email already exists
-                if (_context.Users.Any(u => u.Email == user.Email))
-                {
-                    ModelState.AddModelError("", "Email already exists.");
-                    return View(user);
-                }
-
-                // Hash the password
-                user.PasswordHash = HashPassword(user.PasswordHash);
-
-                _context.Users.Add(user);
-                _context.SaveChanges();
-
-                return RedirectToAction("Login");
+                ViewBag.Error = "Name and Email are required.";
+                return View();
             }
-            return View(user);
+
+            if (Password != ConfirmPassword)
+            {
+                ViewBag.Error = "Passwords do not match.";
+                return View();
+            }
+
+            if (_context.Users.Any(u => u.Email == Email))
+            {
+                ViewBag.Error = "Email already exists.";
+                return View();
+            }
+
+            var user = new User
+            {
+                Name = Name,
+                Email = Email,
+                Password = Password // For now plain password (NOT recommended in production)
+            };
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+            return RedirectToAction("Login");
         }
 
-        private object HashPassword(object passwordHash)
-        {
-            throw new NotImplementedException();
-        }
-
-        // ===== Login =====
+        // ===== Login (GET) =====
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        // ===== Login (POST) =====
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
-            var hashedPassword = HashPassword(password);
-
-            var user = _context.Users.FirstOrDefault(u => u.Email == email && u.PasswordHash == hashedPassword);
+            var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
 
             if (user != null)
             {
-                // Store user info in session or TempData
-                TempData["UserName"] = user.Name;
+                HttpContext.Session.SetString("UserName", user.Name);
+                HttpContext.Session.SetString("UserEmail", user.Email);
+                HttpContext.Session.SetString("UserId", user.Email); // ✅ Moved inside the if block
                 return RedirectToAction("Index", "Home");
             }
 
             ViewBag.Error = "Invalid email or password.";
-            return View();
+            return View(); // ❌ Do not access user.Email here — user is null
         }
+
 
         // ===== Logout =====
         public IActionResult Logout()
         {
-            TempData.Clear();
+            HttpContext.Session.Clear();
             return RedirectToAction("Login");
-        }
-
-        // ===== Password Hasher =====
-        private string HashPassword(string password)
-        {
-            using (var sha256 = SHA256.Create())
-            {
-                var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                var sb = new StringBuilder();
-                foreach (var b in bytes)
-                    sb.Append(b.ToString("x2"));
-                return sb.ToString();
-            }
         }
     }
 }

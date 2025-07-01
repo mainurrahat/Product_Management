@@ -4,53 +4,185 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - productManagement</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/productManagement.styles.css" asp-append-version="true" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        html, body {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        nav.navbar {
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+        }
+
+            .navbar-nav .nav-link:hover,
+            .navbar-nav .nav-link:focus {
+                color: #ffd700 !important;
+            }
+
+        .dropdown-menu {
+            background-color: #182848;
+            border-radius: 8px;
+        }
+
+            .dropdown-menu .dropdown-item {
+                color: white;
+            }
+
+                .dropdown-menu .dropdown-item:hover {
+                    background-color: #4b6cb7;
+                }
+
+        /* Main content grows to fill space */
+        .main-content {
+            flex: 1;
+            padding: 30px 0;
+        }
+
+        /* Footer fixed height and stays at bottom */
+        footer.footer {
+            height: 300px;
+            background: linear-gradient(90deg, #182848 0%, #4b6cb7 100%);
+            color: white;
+            padding: 40px 0;
+            border-top: 5px solid #ffd700;
+        }
+
+            footer.footer h5 {
+                font-weight: 600;
+                margin-bottom: 20px;
+            }
+
+            footer.footer a {
+                color: #ffd700;
+                text-decoration: none;
+            }
+
+                footer.footer a:hover {
+                    color: #fff;
+                    text-decoration: underline;
+                }
+
+        .footer .social-icons a {
+            margin-right: 15px;
+            font-size: 1.4rem;
+            transition: color 0.3s ease;
+        }
+
+            .footer .social-icons a:hover {
+                color: white;
+            }
+    </style>
+    
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-light border-bottom shadow-sm">
-            <div class="container-fluid">
-                <a class="navbar-brand fw-bold text-primary" asp-area="" asp-controller="Home" asp-action="Index">
-                    productManagement
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+            <div class="container-fluid px-4">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">productManagement</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index">All Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Product" asp-action="Index">All Products</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Order" asp-action="Index">Orders</a></li>
+                        <li class="nav-item"> <a class="nav-link" asp-controller="Review" asp-action="Index">Reviews</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a></li>
+
+                        @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+                        @{
+                            var userName = HttpContextAccessor.HttpContext?.Session.GetString("UserName");
+                        }
+
+                        @if (!string.IsNullOrEmpty(userName))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">@userName</a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Login">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Register">Register</a></li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-    <div class="container mt-4">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <main class="container main-content">
+        @RenderBody()
+    </main>
 
-    <footer class="border-top footer text-muted mt-5">
-        <div class="container text-center py-3">
-            &copy; 2025 - productManagement - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    <!-- Footer -->
+    @* <footer class="footer"> *@
+    @*     <div class="container"> *@
+    @*         <div class="row text-center text-md-start"> *@
+    @*             <div class="col-md-4 mb-4"> *@
+    @*                 <h5>About Us</h5> *@
+    @*                 <p>We provide quality products and exceptional service. Shop confidently and easily.</p> *@
+    @*             </div> *@
+    @*             <div class="col-md-4 mb-4"> *@
+    @*                 <h5>Quick Links</h5> *@
+    @*                 <ul class="list-unstyled"> *@
+    @*                     <li><a asp-controller="Home" asp-action="Index">Home</a></li> *@
+    @*                     <li><a asp-controller="Product" asp-action="Index">All Products</a></li> *@
+    @*                     <li><a asp-controller="Order" asp-action="Index">Orders</a></li> *@
+    @*                     <li><a asp-controller="Review" asp-action="Index">Reviews</a></li> *@
+    @*                     <li><a asp-controller="Home" asp-action="Contact">Contact</a></li> *@
+    @*                 </ul> *@
+    @*             </div> *@
+    @*             <div class="col-md-4 mb-4"> *@
+    @*                 <h5>Contact</h5> *@
+    @*                 <p>Email: support@productmanagement.com</p> *@
+    @*                 <p>Phone: +123 456 7890</p> *@
+    @*                 <div class="social-icons mt-2"> *@
+    @*                     <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a> *@
+    @*                     <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a> *@
+    @*                     <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a> *@
+    @*                     <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a> *@
+    @*                 </div> *@
+    @*             </div> *@
+    @*         </div> *@
+    @*         <div class="text-center mt-3"> *@
+    @*             &copy; 2025 productManagement. All rights reserved. *@
+    @*         </div> *@
+    @*     </div> *@
+    @* </footer> *@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

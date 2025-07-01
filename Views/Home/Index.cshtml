@@ -2,16 +2,47 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8 text-center p-5 shadow rounded bg-light">
-            <h1 class="display-4 mb-4 text-primary">Welcome to Product Management System</h1>
-            <p class="lead">
-                Explore how to build modern web applications with
-                <a class="btn btn-outline-primary mt-2" href="https://learn.microsoft.com/aspnet/core" target="_blank">
-                    ASP.NET Core Documentation
-                </a>
-            </p>
+<!-- Banner -->
+<section class="banner container mt-4">
+    <h1>Welcome to productManagement</h1>
+    <p>Your one-stop shop for quality products and services</p>
+    <a href="@Url.Action("Index", "Product")" class="btn btn-primary">Shop Now</a>
+</section>
+
+<!-- Trending Products -->
+<section class="trending-section container">
+    <h2>Trending Products</h2>
+    <div class="row">
+        <!-- Sample product cards -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <img src="/images/product1.jpg" class="card-img-top" alt="Product 1" />
+                <div class="card-body">
+                    <h5 class="card-title">Product One</h5>
+                    <p class="card-text">High quality and reliable product.</p>
+                    <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <img src="/images/product2.jpg" class="card-img-top" alt="Product 2" />
+                <div class="card-body">
+                    <h5 class="card-title">Product Two</h5>
+                    <p class="card-text">Best seller of the month.</p>
+                    <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <img src="/images/product3.jpg" class="card-img-top" alt="Product 3" />
+                <div class="card-body">
+                    <h5 class="card-title">Product Three</h5>
+                    <p class="card-text">Customer favorite and highly recommended.</p>
+                    <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>

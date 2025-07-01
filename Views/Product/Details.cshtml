@@ -1,0 +1,45 @@
+﻿@model productManagement.Models.Product
+
+@{
+    Layout = "_Layout"; // Only if you have a shared layout
+}
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<h2>TESTING: @Model.Name</h2>
+
+<div class="container mt-4">
+    <h2>Product Details</h2>
+
+    <dl class="row">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9">@Model.Id</dd>
+
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9">@Model.Description</dd>
+
+        <dt class="col-sm-3">Price</dt>
+        <dd class="col-sm-9">@Model.Price.ToString("C")</dd>
+
+        <dt class="col-sm-3">Image</dt>
+        <dd class="col-sm-9">
+            @if (!string.IsNullOrEmpty(Model.ImagePath))
+            {
+                <img src="@Model.ImagePath" alt="@Model.Name" class="img-fluid" style="max-height: 200px;" />
+            }
+            else
+            {
+                <span class="text-muted">No image</span>
+            }
+        </dd>
+    </dl>
+
+    <div class="mt-3">
+        @* <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a> *@
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

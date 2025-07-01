@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace productManagement.Models  // Replace 'YourNamespace' with your actual project namespace
+namespace productManagement.Models
 {
     public class Product
     {
@@ -15,5 +15,8 @@ namespace productManagement.Models  // Replace 'YourNamespace' with your actual 
 
         [StringLength(255)]
         public string? Description { get; set; }
+
+        [StringLength(255)]
+        public string? ImagePath { get; set; }  // ✅ Added ImagePath property
     }
 }
