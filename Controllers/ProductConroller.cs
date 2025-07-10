@@ -4,7 +4,7 @@ using productManagement.Models;
 using System.Linq;
 using System;
 
-namespace ProductManagerApp.Controllers
+namespace productManagement.Controllers
 {
     public class ProductController : Controller
     {

@@ -1,0 +1,94 @@
+﻿@model IEnumerable<productManagement.Models.User>
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int totalUsers = (int)ViewData["users"];
+    int pageSize = (int)ViewData["PageSize"];
+    int page = (int)ViewData["CurrentPage"];
+    int totalPages = (int)ViewData["TotalPages"];
+}
+
+<style>
+    .admin-header {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #1e3a8a;
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="container mt-4">
+    <h2 class="admin-header">Admin Dashboard</h2>
+
+    <!-- Top Cards -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Users</h5>
+                    <p class="card-text fs-3">@totalUsers</p>
+                    <a href="#" class="btn btn-light btn-sm">Manage Users</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Pending Orders</h5>
+                    <p class="card-text fs-3">8</p>
+                    <a href="#" class="btn btn-light btn-sm">View Orders</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Monthly Revenue</h5>
+                    <p class="card-text fs-3">$4,560</p>
+                    <a href="#" class="btn btn-light btn-sm">Revenue Report</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5>Users (Page  of @totalPages)</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-bordered table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.Name</td>
+                            <td>@user.Email</td>
+                            <td>@user.Role</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-info">Edit</a>
+                                <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <a class="btn btn-secondary @(page == 1 ? "disabled" : "")" href="?page=@(page - 1)">Previous</a>
+            <a class="btn btn-secondary @(page == totalPages ? "disabled" : "")" href="?page=@(page + 1)">Next</a>
+        </div>
+    </div>
+</div>

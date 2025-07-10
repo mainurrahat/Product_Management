@@ -2,24 +2,131 @@
     ViewData["Title"] = "Login";
 }
 
-<h2>Login</h2>
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        height: 100vh;
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        display: flex;
+        flex-direction: column;
+    }
 
-@if (ViewBag.Error != null)
-{
-    <div class="alert alert-danger">@ViewBag.Error</div>
+    .navbar {
+        z-index: 10;
+    }
+
+    .login-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1; /* Ensures the form is centered within the page */
+        padding-top: 50px; /* Give some space under the navbar */
+    }
+
+    .login-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 2.5rem;
+        max-width: 400px;
+        max-height:800px;
+        width: 100%;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        color: #fff;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        background-color: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: #fff;
+    }
+
+        .form-control::placeholder {
+            color: #eee;
+        }
+
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            box-shadow: none;
+            border: 1px solid #fff;
+        }
+
+    .btn-primary {
+        background: linear-gradient(45deg, #6a11cb, #2575fc);
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #2575fc, #6a11cb);
+        }
+
+    a {
+        color: #ffd;
+    }
+
+        a:hover {
+            text-decoration: underline;
+            color: #fff;
+        }
+
+    .alert-danger {
+        background-color: rgba(255, 0, 0, 0.3);
+        border: none;
+        color: #fff;
+    }
+</style>
+
+<div class="login-container">
+    <div class="login-card">
+        <h2 class="text-center mb-4">Login</h2>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <form asp-action="Login" method="post">
+            <div class="form-group mb-3">
+                <label>Email</label>
+                <input name="email" type="email" class="form-control" placeholder="Enter your email" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Password</label>
+                <input name="password" type="password" class="form-control" placeholder="Enter your password" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mt-2">Login</button>
+            <p class="text-center mt-3">Don't have an account? <a asp-action="Register">Register here</a></p>
+        </form>
+    </div>
+</div>
+<!-- Toast container -->
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+    <div id="logoutToast" class="toast align-items-center text-white bg-info border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                👋 You’ve logged out. Come back soon!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var logoutMessage = '@TempData["LogoutSuccess"]';
+
+            if (logoutMessage) {
+                var toastEl = document.getElementById('logoutToast');
+                var toast = new bootstrap.Toast(toastEl);
+                toast.show();
+            }
+        });
+    </script>
 }
-
-<form asp-action="Login" class="vh-100" method="post">
-    <div class="form-group">
-        <label>Email</label>
-        <input name="email" type="email" class="form-control" required />
-    </div>
-
-    <div class="form-group">
-        <label>Password</label>
-        <input name="password" type="password" class="form-control" required />
-    </div>
-
-    <button type="submit" class="btn btn-primary mt-2">Login</button>
-    <p class="mt-2">Don't have an account? <a asp-action="Register">Register here</a></p>
-</form>
+ 

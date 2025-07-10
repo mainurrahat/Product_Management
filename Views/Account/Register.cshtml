@@ -2,34 +2,159 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>Register</h2>
+<style>
+    body {
+        background: linear-gradient(135deg, #43cea2, #185a9d);
+        min-height: 100vh;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        flex-direction: column;
+    }
 
-@if (ViewBag.Error != null)
-{
-    <div class="alert alert-danger">@ViewBag.Error</div>
+
+    .toast-container {
+        position: fixed;
+        top: 1rem; /* bottom er jaygay top use korlam */
+        right: 1rem;
+        z-index: 1055;
+    }
+
+    .register-container {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 50px; /* ensures space below navbar */
+        padding-bottom: 30px;
+    }
+
+    .register-card {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 2.5rem 2rem;
+        max-width: 420px;
+        width: 100%;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        color: #fff;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+        background-color: rgba(255, 255, 255, 0.18);
+        border: none;
+        color: #f0f0f0;
+    }
+
+        .form-control::placeholder {
+            color: #d4d4d4;
+        }
+
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            box-shadow: none;
+            border: 1px solid #99f6e4;
+        }
+
+    .btn-success {
+        width: 100%;
+        background: linear-gradient(45deg, #11998e, #38ef7d);
+        border: none;
+        font-weight: 600;
+        padding: 0.6rem 1rem;
+        transition: background 0.3s ease;
+    }
+
+        .btn-success:hover {
+            background: linear-gradient(45deg, #38ef7d, #11998e);
+        }
+
+    a {
+        color: #a0f7d9;
+        font-weight: 500;
+    }
+
+        a:hover {
+            text-decoration: underline;
+            color: #cff8e6;
+        }
+
+    .alert-danger {
+        background-color: rgba(255, 0, 0, 0.3);
+        border: none;
+        color: #fff;
+        margin-bottom: 1rem;
+    }
+
+    p.mt-2 {
+        text-align: center;
+        margin-top: 1rem;
+    }
+</style>
+
+<div class="register-container">
+    <div class="register-card">
+        <h2>Register</h2>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <form asp-action="Register" method="post">
+            <div class="form-group mb-3">
+                <label>Name</label>
+                <input name="Name" type="text" class="form-control" placeholder="Your full name" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Email</label>
+                <input name="Email" type="email" class="form-control" placeholder="Your email address" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Password</label>
+                <input name="Password" type="password" class="form-control" placeholder="Create a password" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Confirm Password</label>
+                <input name="ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password" required />
+            </div>
+
+            <button type="submit" class="btn btn-success">Register</button>
+            <p class="mt-2">Already have an account? <a asp-action="Login">Login here</a></p>
+        </form>
+    </div>
+</div>
+<!-- Toast container -->
+<div class="toast-container">
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                ✅ 🥳 "Congrats! You’re now part of the secret society of cool people. Shhh... 🤫"
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var successMessage = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(TempData["Success"] ?? ""));
+
+            if (successMessage) {
+                var toastEl = document.getElementById('successToast');
+                var toast = new bootstrap.Toast(toastEl);
+                toast.show();
+            }
+        });
+    </script>
 }
-
-<form asp-action="Register" class="vh-100" method="post">
-    <div class="form-group mb-3">
-        <label>Name</label>
-        <input name="Name" type="text" class="form-control" required />
-    </div>
-
-    <div class="form-group mb-3">
-        <label>Email</label>
-        <input name="Email" type="email" class="form-control" required />
-    </div>
-
-    <div class="form-group mb-3">
-        <label>Password</label>
-        <input name="Password" type="password" class="form-control" required />
-    </div>
-
-    <div class="form-group mb-3">
-        <label>Confirm Password</label>
-        <input name="ConfirmPassword" type="password" class="form-control" required />
-    </div>
-
-    <button type="submit" class="btn btn-success">Register</button>
-    <p class="mt-2">Already have an account? <a asp-action="Login">Login here</a></p>
-</form>

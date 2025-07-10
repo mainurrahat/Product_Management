@@ -51,8 +51,8 @@ namespace productManagement.Controllers
                 "101 Parkway, Metropolis", "202 Boulevard, Capital"
             };
             string[] images = {
-                "/images/review1.jpg", "/images/review2.jpg", "/images/review3.jpg",
-                "/images/review4.jpg", "/images/review5.jpg"
+                "https://i.ibb.co/bRKkwDtd/xiaomi-mi-12-pro.jpg", "https://i.ibb.co/35FndPQm/sony-wh-1000xm5.jpg", "https://i.ibb.co/3yWxMGm4/xbox-series-x.jpg",
+                "https://i.ibb.co/wZf6ytqb/google-pixel-watch.jpg", "https://i.ibb.co/Pz5QTL06/airpods-pro-2.jpg"
             };
 
             for (int i = 1; i <= 30; i++)

@@ -2,47 +2,301 @@
     ViewData["Title"] = "Home";
 }
 
-<!-- Banner -->
-<section class="banner container mt-4">
-    <h1>Welcome to productManagement</h1>
-    <p>Your one-stop shop for quality products and services</p>
-    <a href="@Url.Action("Index", "Product")" class="btn btn-primary">Shop Now</a>
-</section>
-
-<!-- Trending Products -->
-<section class="trending-section container">
-    <h2>Trending Products</h2>
-    <div class="row">
-        <!-- Sample product cards -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <img src="/images/product1.jpg" class="card-img-top" alt="Product 1" />
-                <div class="card-body">
-                    <h5 class="card-title">Product One</h5>
-                    <p class="card-text">High quality and reliable product.</p>
-                    <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <img src="/images/product2.jpg" class="card-img-top" alt="Product 2" />
-                <div class="card-body">
-                    <h5 class="card-title">Product Two</h5>
-                    <p class="card-text">Best seller of the month.</p>
-                    <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <img src="/images/product3.jpg" class="card-img-top" alt="Product 3" />
-                <div class="card-body">
-                    <h5 class="card-title">Product Three</h5>
-                    <p class="card-text">Customer favorite and highly recommended.</p>
-                    <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
-                </div>
+<!-- Hero Banner -->
+<section class="hero-banner position-relative" style="height: 600px; margin-top: 0px; background: url('https://i.ibb.co/Xfg0FRnZ/banner3.jpg') no-repeat center center; background-size: cover;">
+    <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4);"></div>
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12 text-center text-white position-relative" style="z-index: 1;">
+                <h1 class="display-3 fw-bold mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Premium Quality Products</h1>
+                <p class="lead mb-5" style="font-size: 1.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Discover excellence in every purchase</p>
+                <a href="@Url.Action("Index", "Product")" class="btn btn-warning btn-lg px-4 py-2 fw-bold" style="background-color: #ffd700; color: #182848; border: none; border-radius: 30px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: all 0.3s ease;">
+                    Shop Now <i class="fas fa-arrow-right ms-2"></i>
+                </a>
             </div>
         </div>
     </div>
 </section>
+<!-- Trending Products -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold position-relative d-inline-block" style="color: #182848;">
+                Trending Products
+                <span style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background-color: #ffd700;"></span>
+            </h2>
+            <p class="text-muted mt-3">Our most popular products this week</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Product 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm overflow-hidden" style="border-radius: 15px; transition: all 0.3s ease;">
+                    <div class="position-relative overflow-hidden" style="height: 220px;">
+                        <img src="https://i.ibb.co/9kcg4CZm/22.jpg" class="card-img-top h-100 w-100 object-fit-cover" alt="Product 1" />
+                        <div class="badge position-absolute top-0 end-0 m-2 bg-warning text-dark">Hot</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title mb-0 fw-bold" style="color: #182848;">Product One</h5>
+                            <span class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </span>
+                        </div>
+                        <p class="card-text text-muted mb-3">High quality and reliable product with premium features.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0 fw-bold" style="color: #4b6cb7;">$49.99</h5>
+                            <a href="#" class="btn btn-sm px-3 py-2" style="background-color: #4b6cb7; color: white; border-radius: 30px; border: none;">
+                                View Details <i class="fas fa-chevron-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm overflow-hidden" style="border-radius: 15px; transition: all 0.3s ease;">
+                    <div class="position-relative overflow-hidden" style="height: 220px;">
+                        <img src="https://i.ibb.co/j9GcJxyj/6.jpg" class="card-img-top h-100 w-100 object-fit-cover" alt="Product 2" />
+                        <div class="badge position-absolute top-0 end-0 m-2 bg-danger">Sale</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title mb-0 fw-bold" style="color: #182848;">Product Two</h5>
+                            <span class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                        </div>
+                        <p class="card-text text-muted mb-3">Best seller of the month with amazing features.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="text-danger fw-bold">$39.99</span>
+                                <span class="text-decoration-line-through text-muted ms-2">$59.99</span>
+                            </div>
+                            <a href="#" class="btn btn-sm px-3 py-2" style="background-color: #4b6cb7; color: white; border-radius: 30px; border: none;">
+                                View Details <i class="fas fa-chevron-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm overflow-hidden" style="border-radius: 15px; transition: all 0.3s ease;">
+                    <div class="position-relative overflow-hidden" style="height: 220px;">
+                        <img src="https://i.ibb.co/GQPd2nD0/30.jpg" class="card-img-top h-100 w-100 object-fit-cover" alt="Product 3" />
+                        <div class="badge position-absolute top-0 end-0 m-2 bg-success">New</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title mb-0 fw-bold" style="color: #182848;">Product Three</h5>
+                            <span class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                        </div>
+                        <p class="card-text text-muted mb-3">Customer favorite and highly recommended product.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0 fw-bold" style="color: #4b6cb7;">$79.99</h5>
+                            <a href="#" class="btn btn-sm px-3 py-2" style="background-color: #4b6cb7; color: white; border-radius: 30px; border: none;">
+                                View Details <i class="fas fa-chevron-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <a href="@Url.Action("Index", "Product")" class="btn btn-outline-primary px-4 py-2" style="border-radius: 30px; border-width: 2px;">
+                View All Products <i class="fas fa-long-arrow-alt-right ms-2"></i>
+            </a>
+        </div>
+        <!-- Why Choose Us Section -->
+        <section class="py-5 text-center bg-white">
+            <div class="container">
+                <h2 class="fw-bold mb-4" style="color: #182848;">Why Choose Us?</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <i class="fas fa-shipping-fast fa-2x text-warning mb-2"></i>
+                        <h5 class="fw-bold">Free Shipping</h5>
+                        <p class="text-muted">On all orders over ৳500</p>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fas fa-headset fa-2x text-warning mb-2"></i>
+                        <h5 class="fw-bold">24/7 Support</h5>
+                        <p class="text-muted">We’re always here to help</p>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fas fa-undo fa-2x text-warning mb-2"></i>
+                        <h5 class="fw-bold">Easy Returns</h5>
+                        <p class="text-muted">Hassle-free return policy</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Brand Story Section -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <img src="https://i.ibb.co/w7zDZDw/brand-story.jpg" alt="Our Story" class="img-fluid rounded shadow" />
+                    </div>
+                    <div class="col-md-6">
+                        <h2 class="fw-bold mb-3" style="color: #182848;">Our Story</h2>
+                        <p class="text-muted mb-4">Founded with a passion for quality and customer satisfaction, our brand began as a small idea and grew into a movement. We focus on delivering exceptional products that meet real needs and exceed expectations. Every item we offer reflects our values of craftsmanship, integrity, and innovation.</p>
+                        <p class="text-muted">We believe in empowering our customers by providing not just products, but also inspiration. Thank you for being part of our journey.</p>
+                        <a href="#" class="btn btn-primary mt-3" style="border-radius: 30px; background-color: #4b6cb7; border: none;">
+                            Learn More About Us <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- FAQs Section -->
+        <section class="py-5 bg-white">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold" style="color: #182848;">Frequently Asked Questions</h2>
+                    <p class="text-muted">Find answers to common questions below</p>
+                </div>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="faqHeadingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="true" aria-controls="faqOne">
+                                How long does delivery take?
+                            </button>
+                        </h2>
+                        <div id="faqOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                We deliver most orders within 3-5 business days. Some remote areas may take longer.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="faqHeadingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">
+                                Can I return a product?
+                            </button>
+                        </h2>
+                        <div id="faqTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes! We offer a 7-day return policy on all unused items in their original packaging.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="faqHeadingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree" aria-expanded="false" aria-controls="faqThree">
+                                How can I contact support?
+                            </button>
+                        </h2>
+                        <div id="faqThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                You can reach us via email at support@example.com or call us 24/7 at 123-456-7890.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Join the Community Section -->
+        <section class="py-5 bg-light text-center">
+            <div class="container">
+                <h2 class="fw-bold mb-4" style="color: #182848;">Join the Community</h2>
+                <p class="text-muted mb-4">Be part of 10,000+ users who connect, share, and grow together</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="#" class="btn btn-outline-primary rounded-circle" style="width: 60px; height: 60px;">
+                        <i class="fab fa-discord fa-2x"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-primary rounded-circle" style="width: 60px; height: 60px;">
+                        <i class="fab fa-facebook-f fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partner Logos Section -->
+        <section class="py-5 bg-white">
+            <div class="container">
+                <h2 class="text-center fw-bold mb-5" style="color: #182848;">Brands We Work With</h2>
+                <div class="row text-center justify-content-center align-items-center g-4">
+                    <div class="col-4 col-md-2">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" class="img-fluid" alt="Google" style="max-height: 50px;" />
+                    </div>
+                   
+                  
+                    <div class="col-4 col-md-2">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" class="img-fluid" alt="Apple" style="max-height: 50px;" />
+                    </div>
+                  
+                </div>
+            </div>
+        </section>
+
+        <!-- App Download Section -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <img src="https://i.ibb.co/MyrPDGgt/app.jpg" alt="Download Our App" class="img-fluid rounded shadow" />
+                    </div>
+                    <div class="col-md-6">
+                        <h2 class="fw-bold mb-3" style="color: #182848;">Get Our Mobile App</h2>
+                        <p class="text-muted mb-4">Shop on the go with our mobile app. Easy browsing, exclusive discounts, and instant updates all in your pocket.</p>
+                        <div class="d-flex align-items-center gap-3">
+                            <a href="#" class="btn btn-dark d-flex align-items-center gap-2 px-3 py-2" style="border-radius: 12px;">
+                                <i class="fab fa-apple fa-2x"></i>
+                                <div class="text-start">
+                                    <small style="font-size: 0.7rem;">Download on the</small><br />
+                                    <strong>App Store</strong>
+                                </div>
+                            </a>
+                            <a href="#">
+                                <img src="https://i.ibb.co/XfSjpQ8d/Qr.png" alt="QR Code" class="img-fluid" style="width: 100px; height: 100px;" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</section>
+@if (TempData["Success"] != null)
+{
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+        <div class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @TempData["Success"]
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toastEl = document.querySelector('.toast');
+            if (toastEl) {
+                const toast = new bootstrap.Toast(toastEl);
+                toast.show();
+            }
+        });
+    </script>
+}

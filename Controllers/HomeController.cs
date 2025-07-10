@@ -28,4 +28,17 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+    public IActionResult Contact()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Contact(string name, string email, string subject, string message)
+    {
+        // You can add email sending or DB saving logic here
+        TempData["Success"] = "Thank you! Your message has been received.";
+        return RedirectToAction("Contact");
+    }
+
 }

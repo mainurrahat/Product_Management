@@ -1,38 +1,176 @@
 ﻿@model productManagement.Models.Product
 
-<h2>Create New Product</h2>
+<style>
+    /* Ensure the page and body take up full height */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+    /* Main container that accounts for navbar height */
+    .main-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 56px); /* Subtract navbar height */
+        padding: 20px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    /* Vibrant gradient background - moved to wrapper */
+    .background-wrapper {
+        background: linear-gradient(135deg, #667eea, #764ba2, #6a11cb, #2575fc);
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    .form-container {
+        background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+        padding: 2.5rem 3rem;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+        max-width: 600px;
+        width: 100%;
+        color: #1f2937;
+        margin: 20px 0; /* Add some margin */
+    }
+
+    h2 {
+        margin-bottom: 2rem;
+        color: #4b0082; /* Deep purple */
+        text-align: center;
+        font-weight: 700;
+        font-size: 2rem;
+        text-shadow: 1px 1px 2px rgba(101, 52, 139, 0.7);
+    }
+
+    label {
+        font-weight: 600;
+        color: #4b0082;
+        margin-bottom: 0.3rem;
+        display: block;
+    }
+
+    .form-control {
+        border: 1.5px solid #9d7edd;
+        border-radius: 8px;
+        padding: 0.5rem 0.75rem;
+        font-size: 1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        background-color: #f3f0ff;
+        color: #4b0082;
+    }
+
+        .form-control::placeholder {
+            color: #9d7edd;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #6a11cb;
+            box-shadow: 0 0 8px #6a11cb;
+            background-color: #e7e0ff;
+            color: #4b0082;
+        }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .text-danger {
+        font-size: 0.9rem;
+        margin-top: 0.25rem;
+        color: #b00020;
+    }
+
+    .btn-success {
+        background: linear-gradient(45deg, #6a11cb, #2575fc);
+        border: none;
+        padding: 0.6rem 1.5rem;
+        font-weight: 700;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        width: 100%;
+        cursor: pointer;
+        color: white;
+        box-shadow: 0 4px 15px rgba(101, 52, 139, 0.7);
+        transition: background 0.3s ease;
+    }
+
+        .btn-success:hover {
+            background: linear-gradient(45deg, #2575fc, #6a11cb);
+        }
+
+    .btn-secondary {
+        background: #9d7edd;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        margin-left: 1rem;
+        cursor: pointer;
+        color: #4b0082;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 2px 10px rgba(157, 126, 221, 0.6);
+    }
+
+        .btn-secondary:hover {
+            background-color: #764ba2;
+            color: white;
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.7);
+        }
+
+    .button-group {
+        display: flex;
+        justify-content: center;
+        margin-top: 1.8rem;
+    }
+</style>
+
+<div class="background-wrapper">
+    <div class="main-content">
+        <div class="form-container">
+            <h2>Create New Product</h2>
+
+            <form asp-action="Create" method="post" novalidate>
+                <div class="form-group mb-4">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Product name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control" placeholder="Product description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price" class="form-control" placeholder="Price in USD" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="ImagePath"></label>
+                    <input asp-for="ImagePath" class="form-control" placeholder="Image URL or path" />
+                    <span asp-validation-for="ImagePath" class="text-danger"></span>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-success">Create</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Price"></label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="ImagePath"></label>
-        <input asp-for="ImagePath" class="form-control" />
-        <span asp-validation-for="ImagePath" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-success">Create</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-</form>
+</div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @Html.Partial("_ValidationScriptsPartial")
 }

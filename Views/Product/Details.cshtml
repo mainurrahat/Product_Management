@@ -1,45 +1,136 @@
 ﻿@model productManagement.Models.Product
 
 @{
-    Layout = "_Layout"; // Only if you have a shared layout
-}
-@{
+    Layout = "_Layout";
     ViewData["Title"] = "Product Details";
 }
 
-<h2>TESTING: @Model.Name</h2>
+<style>
+    .wrapper {
+        background-color: #e0e7ff;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem 1rem;
+    }
 
-<div class="container mt-4">
-    <h2>Product Details</h2>
+    .rahat {
+        max-width: 720px;
+        background: #fff;
+        padding: 2rem 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
 
-    <dl class="row">
-        <dt class="col-sm-3">ID</dt>
-        <dd class="col-sm-9">@Model.Id</dd>
+    h2 {
+        font-weight: 700;
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+        color: #2c3e50;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+    }
 
-        <dt class="col-sm-3">Name</dt>
-        <dd class="col-sm-9">@Model.Name</dd>
+    dl.row {
+        margin-bottom: 2rem;
+    }
 
-        <dt class="col-sm-3">Description</dt>
-        <dd class="col-sm-9">@Model.Description</dd>
+    dt.col-sm-3 {
+        font-weight: 600;
+        color: #555;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #eee;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
 
-        <dt class="col-sm-3">Price</dt>
-        <dd class="col-sm-9">@Model.Price.ToString("C")</dd>
+    dd.col-sm-9 {
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #eee;
+        font-size: 1.05rem;
+        color: #222;
+    }
 
-        <dt class="col-sm-3">Image</dt>
-        <dd class="col-sm-9">
-            @if (!string.IsNullOrEmpty(Model.ImagePath))
-            {
-                <img src="@Model.ImagePath" alt="@Model.Name" class="img-fluid" style="max-height: 200px;" />
-            }
-            else
-            {
-                <span class="text-muted">No image</span>
-            }
-        </dd>
-    </dl>
+    img.img-fluid {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin-top: 0.5rem;
+    }
 
-    <div class="mt-3">
-        @* <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a> *@
-        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    .text-muted {
+        color: #999 !important;
+        font-style: italic;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 0.6rem 1.5rem;
+        font-weight: 600;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        text-align: center;
+        font-size: 1rem;
+        user-select: none;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        box-shadow: 0 3px 10px rgba(108, 117, 125, 0.6);
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            box-shadow: 0 5px 15px rgba(90, 98, 104, 0.8);
+            text-decoration: none;
+            color: white;
+        }
+
+    .mt-3 {
+        text-align: center;
+    }
+</style>
+
+<div class="wrapper">
+    <div class="rahat">
+        <h2>Product Details</h2>
+
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
+
+            <dt class="col-sm-3">Price</dt>
+            <dd class="col-sm-9">@Model.Price.ToString("C")</dd>
+
+            <dt class="col-sm-3">Image</dt>
+            <dd class="col-sm-9">
+                @if (!string.IsNullOrEmpty(Model.ImagePath))
+                {
+                    <img src="@Model.ImagePath" alt="@Model.Name" class="img-fluid" style="max-height: 200px;" />
+                }
+                else
+                {
+                    <span class="text-muted">No image</span>
+                }
+            </dd>
+        </dl>
+
+        <div class="mt-3">
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
     </div>
 </div>

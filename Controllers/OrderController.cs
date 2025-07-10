@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace productManagement.Controllers
 {
-    
     public class OrderController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -44,13 +43,9 @@ namespace productManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Order order)
         {
-            if (!ModelState.IsValid)
-            {
-                order.Product = await _context.Products.FindAsync(order.ProductId);
-                return View(order);
-            }
+            // ✅ Get user email from cookie
+            string? userId = Request.Cookies["UserEmail"];
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
             {
                 TempData["Error"] = "You must be logged in to place an order.";
@@ -58,21 +53,24 @@ namespace productManagement.Controllers
             }
 
             order.UserId = userId;
-            order.OrderDate = DateTime.UtcNow; // Use UTC for consistency
+            order.OrderDate = DateTime.UtcNow;
 
             try
             {
                 _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
 
-                TempData["Success"] = "Order placed successfully!";
-                return RedirectToAction("Details", new { id = order.Id });
+                // ✅ Add this line for success alert
+                TempData["Success"] = "✅ Order placed successfully!";
+
+                return RedirectToAction("Create", new { productId = order.ProductId });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error placing order");
                 ModelState.AddModelError("", "An error occurred while placing your order.");
                 order.Product = await _context.Products.FindAsync(order.ProductId);
+
                 return View(order);
             }
         }

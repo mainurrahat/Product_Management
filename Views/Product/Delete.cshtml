@@ -1,25 +1,131 @@
 ﻿@model productManagement.Models.Product
 
-<h2>Delete Product</h2>
+<style>
+    body {
+       
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
 
-<h3>Are you sure you want to delete this?</h3>
+    .wrapper {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem 1rem;
+        animation: fadeIn 1s ease forwards;
+        background: linear-gradient(135deg, #667eea, #764ba2, #6a11cb, #2575fc);
+    }
 
-<dl class="row">
-    <dt class="col-sm-3">ID</dt>
-    <dd class="col-sm-9">@Model.Id</dd>
+    .rahat {
+        background: white;
+        max-width: 600px;
+        width: 100%;
+        padding: 2.5rem 3rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        animation: slideUp 0.8s ease forwards;
+    }
 
-    <dt class="col-sm-3">Name</dt>
-    <dd class="col-sm-9">@Model.Name</dd>
+    h2, h3 {
+        color: #b91c1c;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 1.2rem;
+        user-select: none;
+    }
 
-    <dt class="col-sm-3">Description</dt>
-    <dd class="col-sm-9">@Model.Description</dd>
+    dl.row {
+        margin-bottom: 2rem;
+    }
 
-    <dt class="col-sm-3">Price</dt>
-    <dd class="col-sm-9">@Model.Price.ToString("C")</dd>
-</dl>
+    dt.col-sm-3 {
+        font-weight: 600;
+        color: #444;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #eee;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+    }
 
-<form asp-action="Delete" method="post">
-    <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">Delete</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-</form>
+    dd.col-sm-9 {
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #eee;
+        font-size: 1.1rem;
+        color: #222;
+    }
+
+    form {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .btn {
+        padding: 0.6rem 1.6rem;
+        font-weight: 600;
+        font-size: 1.05rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: box-shadow 0.3s ease, background-color 0.3s ease;
+        user-select: none;
+    }
+
+    .btn-danger {
+        background-color: #b91c1c;
+        color: white;
+        box-shadow: 0 4px 15px rgba(185, 28, 28, 0.7);
+    }
+
+        .btn-danger:hover {
+            background-color: #7f1414;
+            box-shadow: 0 6px 20px rgba(127, 20, 20, 0.9);
+        }
+
+    .btn-secondary {
+        background-color: #6b7280;
+        color: white;
+        box-shadow: 0 3px 12px rgba(107, 114, 128, 0.7);
+    }
+
+        .btn-secondary:hover {
+            background-color: #4b5563;
+            box-shadow: 0 5px 15px rgba(75, 85, 99, 0.9);
+        }
+</style>
+
+<div class="wrapper">
+    <div class="rahat">
+        <h2>Delete Product</h2>
+        <h3>Are you sure you want to delete this?</h3>
+
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
+
+            <dt class="col-sm-3">Price</dt>
+            <dd class="col-sm-9">@Model.Price.ToString("C")</dd>
+        </dl>
+
+        <form asp-action="Delete" method="post" onsubmit="return confirmDelete()">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this product?');
+    }
+</script>

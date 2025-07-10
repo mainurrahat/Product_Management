@@ -3,75 +3,36 @@
 @{
     int currentPage = ViewBag.CurrentPage ?? 1;
     int totalPages = ViewBag.TotalPages ?? 1;
+    ViewData["Title"] = "Customer Reviews";
 }
-
-<h2 class="mb-4 text-center">Customer Reviews</h2>
-
-<div class="row">
-    @foreach (var review in Model)
-    {
-        <div class="col-md-4 mb-4">
-            <div class="card review-card shadow-sm h-100">
-                @if (!string.IsNullOrEmpty(review.ImagePath))
-                {
-                    <img src="@review.ImagePath" alt="@review.Name" class="card-img-top review-img" />
-                }
-                <div class="card-body">
-                    <h5 class="card-title text-primary fw-bold">@review.Name</h5>
-                    <p class="text-muted small mb-1">@review.Address</p>
-                    <p>
-                        @for (int i = 1; i <= 5; i++)
-                        {
-                            <i class="@(i <= review.Rating ? "fas fa-star text-warning" : "far fa-star text-muted")"></i>
-                        }
-                    </p>
-                    <p class="card-text fst-italic">"@review.Description"</p>
-                </div>
-                <div class="card-footer text-muted small d-flex justify-content-between align-items-center">
-                    <span>By <strong>@review.ReviewerName</strong></span>
-                    <span>@review.ReviewDate.ToString("dd MMM yyyy")</span>
-                </div>
-            </div>
-        </div>
-    }
-</div>
-
-<!-- Pagination -->
-<nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4">
-    <ul class="pagination">
-        <li class="page-item @(currentPage == 1 ? "disabled" : "")">
-            <a class="page-link" href="@Url.Action("Index", new { page = currentPage - 1 })" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-
-        @for (int i = 1; i <= totalPages; i++)
-        {
-            <li class="page-item @(i == currentPage ? "active" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
-            </li>
-        }
-
-        <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
-            <a class="page-link" href="@Url.Action("Index", new { page = currentPage + 1 })" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
-</nav>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <style>
+    /* body { */
+    /*     background: linear-gradient(120deg, #f0f4f8, #dbeafe); */
+    /*     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    /*     padding: 2rem 1rem; */
+    /* } */
+
+    h2 {
+        font-weight: 700;
+        font-size: 2rem;
+        color: #1e3a8a;
+        margin-bottom: 2rem;
+        user-select: none;
+    }
+
     .review-card {
         border-radius: 15px;
-        background: linear-gradient(135deg, #d3eafd, #a1c4fd);
+        background: linear-gradient(135deg, #e0f2fe, #c7d2fe);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     }
 
         .review-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
         }
 
     .review-img {
@@ -81,14 +42,93 @@
         object-fit: cover;
     }
 
-    .page-link {
-        color: #007bff;
-        font-weight: 600;
+    .card-title {
+        font-size: 1.2rem;
+        color: #1d4ed8;
     }
 
-    .page-item.active .page-link {
-        background: #4a90e2;
-        border-color: #4a90e2;
+    .card-text {
+        color: #374151;
+    }
+
+    .card-footer {
+        background: #f1f5f9;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .pagination .page-link {
+        color: #1e3a8a;
+        font-weight: 600;
+        border-radius: 8px;
+        margin: 0 0.25rem;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #2563eb;
         color: white;
+        border: none;
+        box-shadow: 0 0 8px rgba(37, 99, 235, 0.5);
+    }
+
+    .pagination .page-link:hover {
+        background-color: #dbeafe;
+        color: #1e40af;
     }
 </style>
+
+<div class="container">
+    <h2 class="text-center">Customer Reviews</h2>
+
+    <div class="row">
+        @foreach (var review in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card review-card shadow-sm h-100">
+                    @if (!string.IsNullOrEmpty(review.ImagePath))
+                    {
+                        <img src="@review.ImagePath" alt="@review.Name" class="card-img-top review-img" />
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@review.Name</h5>
+                        <p class="text-muted small mb-1">@review.Address</p>
+                        <p class="mb-2">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <i class="@(i <= review.Rating ? "fas fa-star text-warning" : "far fa-star text-muted")"></i>
+                            }
+                        </p>
+                        <p class="card-text fst-italic">"@review.Description"</p>
+                    </div>
+                    <div class="card-footer small d-flex justify-content-between align-items-center">
+                        <span>By <strong>@review.ReviewerName</strong></span>
+                        <span>@review.ReviewDate.ToString("dd MMM yyyy")</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4">
+        <ul class="pagination">
+            <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = currentPage - 1 })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = currentPage + 1 })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
